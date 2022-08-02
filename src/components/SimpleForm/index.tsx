@@ -11,17 +11,16 @@ interface IFormProps {
 
 const signUpSchema = yup
   .object({
-    name: yup.string().required("É necessário informar seu nome"),
+    name: yup.string().required("É necessário informar seu nome."),
     password: yup
       .string()
-      .min(6, "A senha deve ter no mínimo 6 caracteres")
-      .required(),
+      .min(6, "A senha deve ter no mínimo 6 caracteres.")
+      .required("É necessário informar uma senha."),
     email: yup
       .string()
-      .email()
-      .required("É necessário informar seu endereço de e-mail"),
-  })
-  .required();
+      .email("Insira um e-mail válido.")
+      .required("É necessário informar seu endereço de e-mail."),
+  }).required();
 
 export function SimpleForm() {
   const {
@@ -45,7 +44,7 @@ export function SimpleForm() {
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label>Nome</label>
-        <input type="text" {...register("name")} />
+        <input type="text" {...register("name")} autoComplete="name"/>
         {errors.name && <span>{errors.name.message}</span>}
       </div>
 
@@ -53,7 +52,7 @@ export function SimpleForm() {
         <label>Senha</label>
         <input
           type="password"
-          // autocomplete="current-password"
+          autoComplete="current-password"
           {...register("password")}
         />
         {errors.password && <span>{errors.password.message}</span>}
@@ -61,7 +60,7 @@ export function SimpleForm() {
 
       <div>
         <label>Email</label>
-        <input type="email" {...register("email")} />
+        <input type="email" {...register("email")} autoComplete="email"/>
         {errors.email && <span>{errors.email.message}</span>}
       </div>
 
